@@ -66,11 +66,18 @@ const fetch = async (timestamp: number) => {
     data: requestHistoricalVolumeData,
   };
 
-  // TODO: use promise all to run requests in paralel when getMetrics endpoint is ready
-  const responsePoolsData = await axios(requestObjectPoolsData);
-  const responseHistoricalVolumeData = await axios(
+  const responsePoolsDataPromise = axios(requestObjectPoolsData);
+  const responseHistoricalVolumeDataPromise = axios(
     requestObjectHistoricalVolumeData
   );
+
+  const result = await Promise.all([
+    responsePoolsDataPromise,
+    responseHistoricalVolumeDataPromise,
+  ]);
+
+  const responsePoolsData = result[0];
+  const responseHistoricalVolumeData = result[1];
 
   const {
     data: { data: poolsData },
@@ -97,7 +104,7 @@ const fetch = async (timestamp: number) => {
     historicalData &&
     historicalData.getMetrics &&
     historicalData.getMetrics?.length > 0
-      ? poolsData.getMetrics.reduce(
+      ? historicalData.getMetrics.reduce(
           (acc: number, dayValue: { volume: string }) => {
             acc += Number(dayValue.volume);
             return acc;

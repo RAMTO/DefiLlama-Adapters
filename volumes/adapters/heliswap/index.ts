@@ -6,7 +6,7 @@ import axios from "axios";
 const urlConfigs = {
   graphQLUrl: "https://heliswap-prod-362307.oa.r.appspot.com/query",
   tokenListUrl:
-    "https://heliswap.infura-ipfs.io/ipfs/QmWcPfxiQsi2R6EXQLygLV5XVq36QcP6bmbaHN6ajwLeGv",
+    "https://heliswap.infura-ipfs.io/ipfs/QmTkk1Cmvh3D8cQHKf4P8WovwRzSABWrDjo4a8gGxXKUrT",
 };
 
 const axiosConfig = {

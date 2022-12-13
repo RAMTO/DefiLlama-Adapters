@@ -5,8 +5,7 @@ import axios from "axios";
 
 const urlConfigs = {
   graphQLUrl: "https://heliswap-prod-362307.oa.r.appspot.com/query",
-  tokenListUrl:
-    "https://heliswap.infura-ipfs.io/ipfs/QmTkk1Cmvh3D8cQHKf4P8WovwRzSABWrDjo4a8gGxXKUrT",
+  tokenListUrl: "https://heliswap-api.ey.r.appspot.com/tokens/whitelisted/",
 };
 
 const axiosConfig = {
@@ -15,19 +14,10 @@ const axiosConfig = {
 };
 
 const getWhitelistedTokenAddresses = async () => {
-  let tokens = [];
-
   const response = await axios(urlConfigs.tokenListUrl);
-  const {
-    data: { tokens: whitelistedTokens },
-  } = response;
+  const { data: whitelistedTokens } = response;
 
-  tokens =
-    whitelistedTokens.length > 0
-      ? whitelistedTokens.map((token) => token.address)
-      : [];
-
-  return tokens;
+  return whitelistedTokens;
 };
 
 const fetch = async (timestamp: number) => {
